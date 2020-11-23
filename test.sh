@@ -1,15 +1,17 @@
 #!/usr/bin/bash
 
 rm *.dat
+URL=${1:-http://ipv4.download.thinkbroadband.com/5MB.zip}
+HTTP_CHUNK=${2:-100000}
+IO_CHUNK=${3:-1000000}
 
-./downloader.py "http://ipv4.download.thinkbroadband.com/5MB.zip" ${1:-100000} ${2:-1000000}
+./downloader.py "$URL" $HTTP_CHUNK $IO_CHUNK
 
-mkdir -p xxout
-cat *.dat > out/5MB.zip
+mkdir -p out
+cat *.dat > out/testfile
 
-wget  -O 5MB.orig http://ipv4.download.thinkbroadband.com/5MB.zip
+wget  -nc -O out/origfile "$URL"
 
-md5sum out/5MB.zip out/5MB.orig
+md5sum out/testfile out/origfile
 
-xxd out/5MB.zip > out/5MB.zip.text
-xxd out/5MB.orig > out/5MB.orig.text
+diff -s  out/testfile out/origfile 
