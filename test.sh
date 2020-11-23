@@ -10,7 +10,7 @@ IO_CHUNK=${3:-1000000}
 mkdir -p out
 cat *.dat > out/testfile
 
-wget  -nc -O out/origfile "$URL"
+wget -O out/origfile "$URL"
 
 md5sum out/testfile out/origfile
 

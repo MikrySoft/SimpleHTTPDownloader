@@ -82,7 +82,7 @@ def io_worker(write_queue, file_size, file_chunk_size, files):
 def main(url, http_chunk, file_chunk):
     logging.basicConfig(level=logging.DEBUG, format='%(relativeCreated)6d %(threadName)s %(message)s')
 
-    r = requests.head(url)
+    r = requests.head(url, allow_redirects=True)
     if not r.ok:
         logging.error(f"Server returned {r.status_code}, aborting")
         return
